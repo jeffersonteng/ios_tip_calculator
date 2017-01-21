@@ -19,7 +19,9 @@ class SettingsViewController: UIViewController {
         // Do any additional setup after loading the view.
         defaultTipStepper.minimumValue = 0
         defaultTipStepper.maximumValue = 99
-        
+    }
+    
+    override func viewWillAppear(animated: Bool) {
         let localStorageValue = readTipFromlocalStorage()
         defaultTipStepper.value = localStorageValue as? Double ?? 15.0
         defaultTipLabel.text = String(format: defaultTipFormat, defaultTipStepper.value)
