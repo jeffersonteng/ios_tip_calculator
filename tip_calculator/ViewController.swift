@@ -27,7 +27,6 @@ class ViewController: UIViewController {
 
     @IBAction func onTap(sender: AnyObject) {
         
-        //print("HEllo")
         view.endEditing(true)
     }
 
