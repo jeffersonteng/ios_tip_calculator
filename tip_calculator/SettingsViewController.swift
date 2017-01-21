@@ -11,6 +11,7 @@ import UIKit
 class SettingsViewController: UIViewController {
     @IBOutlet weak var defaultTipStepper: UIStepper!
     @IBOutlet weak var defaultTipLabel: UILabel!
+    private var defaultTipFormat = "%.0f"
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,7 +22,7 @@ class SettingsViewController: UIViewController {
         
         let localStorageValue = readTipFromlocalStorage()
         defaultTipStepper.value = localStorageValue as? Double ?? 15.0
-        defaultTipLabel.text = String(format: "%.0f", defaultTipStepper.value)
+        defaultTipLabel.text = String(format: defaultTipFormat, defaultTipStepper.value)
     }
 
     override func didReceiveMemoryWarning() {
@@ -30,7 +31,7 @@ class SettingsViewController: UIViewController {
     }
 
     @IBAction func updateDefaultTip(sender: AnyObject) {
-        defaultTipLabel.text = String(format: "%.0f", defaultTipStepper.value)
+        defaultTipLabel.text = String(format: defaultTipFormat, defaultTipStepper.value)
         writeTipToLocalStorage(defaultTipStepper.value)
         
         // the problem is that we are not updating or reading from defaultTipStepper.value
