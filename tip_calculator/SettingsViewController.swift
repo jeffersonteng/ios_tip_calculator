@@ -22,8 +22,8 @@ class SettingsViewController: UIViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
-        let localStorageValue = readTipFromlocalStorage()
-        defaultTipStepper.value = localStorageValue as? Double ?? 15.0
+        let localStorageValue = readTipFromLocalStorage()
+        defaultTipStepper.value = localStorageValue ?? 15.0
         defaultTipLabel.text = String(format: defaultTipFormat, defaultTipStepper.value)
     }
 
@@ -40,9 +40,9 @@ class SettingsViewController: UIViewController {
         
     }
     
-    func readTipFromlocalStorage() -> AnyObject? {
+    func readTipFromLocalStorage() -> Double? {
         let defaults = NSUserDefaults.standardUserDefaults()
-        return defaults.objectForKey("default_tip_value_string")
+        return defaults.doubleForKey("default_tip_value_double")
     }
     
     func writeTipToLocalStorage(tipValue: Double?) {
@@ -51,7 +51,7 @@ class SettingsViewController: UIViewController {
         }
         
         let defaults = NSUserDefaults.standardUserDefaults()
-        defaults.setDouble(tipValue!, forKey: "default_tip_value_string")
+        defaults.setDouble(tipValue!, forKey: "default_tip_value_double")
         defaults.synchronize()
     }
     

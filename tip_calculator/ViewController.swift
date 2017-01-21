@@ -14,6 +14,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var totalLabel: UILabel!
     @IBOutlet weak var billField: UITextField!
     @IBOutlet weak var tipControl: UISegmentedControl!
+    @IBOutlet weak var tipPercentLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,7 +23,10 @@ class ViewController: UIViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        print("view will appear")
+        
+        let tipValue = readTipFromLocalStorage()
+        
+        tipPercentLabel.text = String(format: "%.0f%%", tipValue ?? "15%")
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -46,8 +50,12 @@ class ViewController: UIViewController {
     }
 
     @IBAction func onTap(sender: AnyObject) {
-        
         view.endEditing(true)
+    }
+    
+    func readTipFromLocalStorage() -> Double? {
+        let defaults = NSUserDefaults.standardUserDefaults()
+        return defaults.doubleForKey("default_tip_value_double")
     }
 
     @IBAction func calculateTip(sender: AnyObject) {
