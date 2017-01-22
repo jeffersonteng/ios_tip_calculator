@@ -9,6 +9,7 @@
 import UIKit
 
 class SettingsViewController: UIViewController {
+    @IBOutlet weak var peopleCountControl: UISegmentedControl!
     @IBOutlet weak var defaultTipStepper: UIStepper!
     @IBOutlet weak var defaultTipLabel: UILabel!
     private var defaultTipFormat = "%.0f"
@@ -25,19 +26,22 @@ class SettingsViewController: UIViewController {
         let localStorageValue = readTipFromLocalStorage()
         defaultTipStepper.value = localStorageValue ?? 15.0
         defaultTipLabel.text = String(format: defaultTipFormat, defaultTipStepper.value)
+        
+        let peopleCountIndex = readPeopleCountIndexFromLocalStorage()
+        peopleCountControl.selectedSegmentIndex = peopleCountIndex
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    @IBAction func onPeopleCountSelection(sender: AnyObject) {
+        writePeopleCountIndexToLocalStorage(peopleCountControl.selectedSegmentIndex)
+    }
 
     @IBAction func updateDefaultTip(sender: AnyObject) {
         defaultTipLabel.text = String(format: defaultTipFormat, defaultTipStepper.value)
         writeTipToLocalStorage(defaultTipStepper.value)
-        
-        // the problem is that we are not updating or reading from defaultTipStepper.value
-        
     }
     
     func readTipFromLocalStorage() -> Double? {
@@ -55,7 +59,17 @@ class SettingsViewController: UIViewController {
         defaults.synchronize()
     }
     
+    func readPeopleCountIndexFromLocalStorage() -> NSInteger {
+        let defaults = NSUserDefaults.standardUserDefaults()
+        // returns 0 if key did not exist
+        return defaults.integerForKey("default_people_count_index")
+    }
     
+    func writePeopleCountIndexToLocalStorage(index: NSInteger) {
+        let defaults = NSUserDefaults.standardUserDefaults()
+        defaults.setInteger(index, forKey: "default_people_count_index")
+        defaults.synchronize()
+    }
     
 
     /*

@@ -166,6 +166,9 @@
                                     <segment title="3"/>
                                     <segment title="4"/>
                                 </segments>
+                                <connections>
+                                    <action selector="onPeopleCountSelection:" destination="cIo-yh-vm1" eventType="valueChanged" id="SxM-Fq-5nI"/>
+                                </connections>
                             </segmentedControl>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How many people are eating?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="LxO-YU-WqT">
                                 <rect key="frame" x="45" y="146" width="226" height="21"/>
@@ -195,6 +198,7 @@
                     <connections>
                         <outlet property="defaultTipLabel" destination="Q6F-l5-2rx" id="d6T-du-DSA"/>
                         <outlet property="defaultTipStepper" destination="g5K-5M-TXe" id="6s1-0P-Bb2"/>
+                        <outlet property="peopleCountControl" destination="fQU-ta-vrN" id="7pB-jh-Mmc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xvf-lj-bx5" userLabel="First Responder" sceneMemberID="firstResponder"/>
