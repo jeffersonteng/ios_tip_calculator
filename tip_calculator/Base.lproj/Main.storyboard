@@ -98,8 +98,8 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="SRm-iv-IIj">
-                                <rect key="frame" x="275" y="332" width="8" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="SRm-iv-IIj">
+                                <rect key="frame" x="260" y="332" width="23" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -121,6 +121,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="billField" destination="iRF-jB-sQb" id="tDd-RC-eg7"/>
+                        <outlet property="peopleCountLabel" destination="SRm-iv-IIj" id="flW-16-cxt"/>
                         <outlet property="tipLabel" destination="dyV-MA-QhQ" id="CxJ-Vm-WYX"/>
                         <outlet property="tipPercentButton" destination="2fs-Se-CMg" id="GiT-Z0-hCs"/>
                         <outlet property="totalLabel" destination="Di8-9E-wKX" id="5kP-RL-F3j"/>

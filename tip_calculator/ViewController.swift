@@ -12,8 +12,10 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var tipLabel: UILabel!
     @IBOutlet weak var totalLabel: UILabel!
+    @IBOutlet weak var peopleCountLabel: UILabel!
     @IBOutlet weak var billField: UITextField!
     @IBOutlet weak var tipPercentButton: UIButton!
+    private var peopleCountArr = [1, 2, 3, 4]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,8 +28,10 @@ class ViewController: UIViewController {
         super.viewWillAppear(animated)
         
         let tipValue = readTipFromLocalStorage()
-        
         tipPercentButton.setTitle(String(format: "%.0f%%", tipValue ?? "15%"), forState: UIControlState.Normal)
+        
+        peopleCountLabel.text = String(format: "%d", peopleCountArr[readPeopleCountFromLocalStorage()])
+        
         refreshTipValues()
     }
     
@@ -59,6 +63,11 @@ class ViewController: UIViewController {
         return defaults.doubleForKey("default_tip_value_double")
     }
     
+    func readPeopleCountFromLocalStorage() -> NSInteger {
+        let defaults = NSUserDefaults.standardUserDefaults()
+        return defaults.integerForKey("default_people_count_index")
+    }
+    
     func refreshTipValues() {
         let tipValue = readTipFromLocalStorage() ?? 0
         let tipPercentage = 0.01 * tipValue
@@ -67,7 +76,9 @@ class ViewController: UIViewController {
         let tipAmount = tipPercentage * preTipBill
         tipLabel.text = String(format: "$%.2f", tipAmount)
         
-        totalLabel.text = String(format: "$%.2f", preTipBill + tipAmount)
+        let peopleCount = peopleCountArr[readPeopleCountFromLocalStorage()]
+        
+        totalLabel.text = String(format: "$%.2f", (preTipBill + tipAmount) / Double(peopleCount))
     }
 
     @IBAction func onBillValueChanged(sender: AnyObject) {
