@@ -70,7 +70,7 @@ class ViewController: UIViewController {
         totalLabel.text = String(format: "$%.2f", preTipBill + tipAmount)
     }
 
-    @IBAction func calculateTip(sender: AnyObject) {
+    @IBAction func onBillValueChanged(sender: AnyObject) {
         refreshTipValues()
     }
 }
