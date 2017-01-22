@@ -13,12 +13,13 @@ class ViewController: UIViewController {
     @IBOutlet weak var tipLabel: UILabel!
     @IBOutlet weak var totalLabel: UILabel!
     @IBOutlet weak var billField: UITextField!
-    @IBOutlet weak var tipControl: UISegmentedControl!
-    @IBOutlet weak var tipPercentLabel: UILabel!
+    @IBOutlet weak var tipPercentButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        // Open keyboard on app open, not on return from Settings
+        billField.becomeFirstResponder()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -26,12 +27,12 @@ class ViewController: UIViewController {
         
         let tipValue = readTipFromLocalStorage()
         
-        tipPercentLabel.text = String(format: "%.0f%%", tipValue ?? "15%")
+        tipPercentButton.setTitle(String(format: "%.0f%%", tipValue ?? "15%"), forState: UIControlState.Normal)
+        refreshTipValues()
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        billField.becomeFirstResponder()
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -57,14 +58,20 @@ class ViewController: UIViewController {
         let defaults = NSUserDefaults.standardUserDefaults()
         return defaults.doubleForKey("default_tip_value_double")
     }
+    
+    func refreshTipValues() {
+        let tipValue = readTipFromLocalStorage() ?? 0
+        let tipPercentage = 0.01 * tipValue
+        
+        let preTipBill = Double(billField.text!) ?? 0
+        let tipAmount = tipPercentage * preTipBill
+        tipLabel.text = String(format: "$%.2f", tipAmount)
+        
+        totalLabel.text = String(format: "$%.2f", preTipBill + tipAmount)
+    }
 
     @IBAction func calculateTip(sender: AnyObject) {
-        let tipPercentages = [0.18, 0.2, 0.25]
-        let bill = Double(billField.text!) ?? 0
-        let tip = bill * tipPercentages[tipControl.selectedSegmentIndex]
-        let total = bill + tip
-        tipLabel.text = String(format: "$%.2f", tip)
-        totalLabel.text = String(format: "$%.2f", total)
+        refreshTipValues()
     }
 }
 
